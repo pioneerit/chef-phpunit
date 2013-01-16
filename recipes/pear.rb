@@ -13,10 +13,10 @@ php_pear_channel "pear.php.net" do
 end
 
 #"skip" issues with pear 1.9.0 & 1.9.2 by upgrading PEAR
-php_pear "pear" do
+php_pear "PEAR" do
 	cur_version = `pear -V| head -1| awk -F': ' '{print $2}'`
 	action :upgrade
-	not_if { Gem::Version.new(cur_version) > Gem::Version.new('1.9.0') }
+	not_if { Gem::Version.new(cur_version) > Gem::Version.new('1.9.3') }
 end
 
 #a component that PHPUnit depends upon is hosted on the Symfony2 PEAR channel
@@ -30,7 +30,7 @@ pearhub_chan = php_pear_channel "pear.phpunit.de" do
 end
 
 #upgrade PHPUnit
-php_pear "phpunit" do
+php_pear "PHPUnit" do
 	channel pearhub_chan.channel_name
 	if node[:phpunit][:version] != "latest"
 		version "#{node[:phpunit][:version]}"
